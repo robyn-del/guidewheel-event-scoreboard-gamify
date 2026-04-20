@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NAMES 2026 · Guidewheel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,400;0,600;0,700;0,900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --charcoal: #36454F;
+    --white: #FFFFFF;
+    --eggplant: #502DD5;
+    --eggplant-deep: #2F1A7F;
+    --eggplant-light: #F0EDFB;
+    --gold: #F1C232;
+    --gold-light: #FEF8D5;
+    --gray: #DFE7EA;
+    --gray-blue: #A3B8C2;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    background: var(--white);
+    color: var(--charcoal);
+    font-family: 'Proxima Nova', 'Nunito Sans', Calibri, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    min-height: 100vh;
+    font-weight: 400;
+    line-height: 1.5;
+  }
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: radial-gradient(ellipse at top, var(--eggplant-light) 0%, var(--white) 50%);
+  }
+
+  @keyframes pulse-dot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.15); } }
+  @keyframes gentle-glow { 0%, 100% { box-shadow: 0 20px 60px rgba(80, 45, 213, 0.12); } 50% { box-shadow: 0 20px 70px rgba(80, 45, 213, 0.22); } }
+  @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+
+  .gate {
+    width: 100%;
+    max-width: 440px;
+    background: var(--white);
+    border-radius: 24px;
+    padding: 48px 40px 36px;
+    border: 1px solid var(--gray);
+    box-shadow: 0 20px 60px rgba(80, 45, 213, 0.12);
+    animation: gentle-glow 4s ease-in-out infinite;
+    text-align: center;
+  }
+
+  .gate.shake { animation: shake 0.4s ease-in-out; }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 32px;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--charcoal);
+    letter-spacing: -0.3px;
+  }
+  .brand .dot {
+    width: 10px;
+    height: 10px;
+    background: var(--eggplant);
+    border-radius: 50%;
+    animation: pulse-dot 1.6s ease-in-out infinite;
+  }
+
+  .lock-wrap {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 22px;
+  }
+  .lock-icon {
+    width: 72px;
+    height: 72px;
+    background: linear-gradient(135deg, var(--eggplant) 0%, var(--eggplant-deep) 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    color: var(--white);
+    box-shadow: 0 8px 24px rgba(80, 45, 213, 0.3);
+  }
+  .live-badge {
+    position: absolute;
+    top: -4px;
+    right: -10px;
+    background: var(--gold);
+    color: var(--eggplant-deep);
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    font-weight: 800;
+    padding: 3px 8px;
+    border-radius: 999px;
+    border: 2px solid var(--white);
+  }
+
+  .title-kicker {
+    font-size: 11px;
+    letter-spacing: 3px;
+    font-weight: 800;
+    color: var(--eggplant);
+    margin-bottom: 8px;
+  }
+  h1 {
+    font-size: 30px;
+    font-weight: 900;
+    color: var(--charcoal);
+    letter-spacing: -1px;
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+  .subtitle {
+    font-size: 14px;
+    color: var(--gray-blue);
+    margin-bottom: 32px;
+    font-weight: 500;
+  }
+
+  form { margin-bottom: 18px; }
+
+  .input-wrap {
+    position: relative;
+    margin-bottom: 14px;
+  }
+  input[type="password"] {
+    width: 100%;
+    padding: 16px 20px;
+    font-size: 16px;
+    font-family: inherit;
+    background: var(--white);
+    color: var(--charcoal);
+    border: 2px solid var(--gray);
+    border-radius: 14px;
+    outline: none;
+    transition: border 0.15s ease, box-shadow 0.15s ease;
+    text-align: center;
+    letter-spacing: 2px;
+    font-weight: 600;
+  }
+  input[type="password"]:focus {
+    border-color: var(--eggplant);
+    box-shadow: 0 0 0 4px rgba(80, 45, 213, 0.1);
+  }
+  input[type="password"].error {
+    border-color: #E24B4A;
+    box-shadow: 0 0 0 4px rgba(226, 75, 74, 0.1);
+  }
+  input[type="password"]::placeholder {
+    color: var(--gray-blue);
+    letter-spacing: 0.5px;
+    font-weight: 500;
+  }
+
+  button {
+    width: 100%;
+    padding: 14px 20px;
+    font-size: 15px;
+    font-family: inherit;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    background: linear-gradient(135deg, var(--eggplant) 0%, var(--eggplant-deep) 100%);
+    color: var(--white);
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: transform 0.1s ease, box-shadow 0.15s ease;
+    text-transform: uppercase;
+  }
+  button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px rgba(80, 45, 213, 0.35);
+  }
+  button:active { transform: translateY(0); }
+  button:disabled {
+    background: var(--gray);
+    cursor: not-allowed;
+    color: var(--gray-blue);
+    transform: none;
+    box-shadow: none;
+  }
+
+  .error-msg {
+    font-size: 13px;
+    color: #E24B4A;
+    margin-top: 6px;
+    min-height: 18px;
+    font-weight: 600;
+  }
+
+  .footer {
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid var(--gray);
+    font-size: 11px;
+    color: var(--gray-blue);
+    letter-spacing: 0.5px;
+    line-height: 1.6;
+  }
+  .footer b { color: var(--charcoal); font-weight: 700; }
+  .footer .hint {
+    display: inline-block;
+    background: var(--gold-light);
+    color: var(--eggplant-deep);
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    font-size: 10px;
+    margin-top: 6px;
+  }
+</style>
+</head>
+<body>
+  <div class="gate" id="gate">
+    <div class="brand">
+      <span class="dot"></span>
+      <span>Guidewheel</span>
+    </div>
+
+    <div class="lock-wrap">
+      <div class="lock-icon">🔒</div>
+      <div class="live-badge">LIVE</div>
+    </div>
+
+    <div class="title-kicker">NAMES 2026</div>
+    <h1>Sales Floor<br>Championship</h1>
+    <div class="subtitle">Enter the team password to view the live scoreboard</div>
+
+    <form id="unlock-form" autocomplete="off">
+      <div class="input-wrap">
+        <input type="password" id="pw" placeholder="Password" autofocus autocomplete="off" />
+      </div>
+      <button type="submit" id="submit-btn">Unlock Scoreboard</button>
+      <div class="error-msg" id="err"></div>
+    </form>
+
+    <div class="footer">
+      <b>Powered by Guidewheel</b> · Live from Salesforce<br>
+      Auto-refresh every 15 min · contest ends Wed 4/22 5pm PT
+      <br><span class="hint">Ask Robyn for the password</span>
+    </div>
+  </div>
+
+<script id="payload" type="application/octet-stream">{{ENCRYPTED_BLOB}}</script>
+
+<script>
+  (function() {
+    const form = document.getElementById('unlock-form');
+    const pwInput = document.getElementById('pw');
+    const errEl = document.getElementById('err');
+    const btn = document.getElementById('submit-btn');
+    const gate = document.getElementById('gate');
+
+    function showError(msg) {
+      errEl.textContent = msg;
+      pwInput.classList.add('error');
+      gate.classList.remove('shake');
+      // Force reflow to restart animation
+      void gate.offsetWidth;
+      gate.classList.add('shake');
+      setTimeout(() => gate.classList.remove('shake'), 500);
+    }
+
+    function clearError() {
+      errEl.textContent = '';
+      pwInput.classList.remove('error');
+    }
+
+    pwInput.addEventListener('input', clearError);
+
+    async function decryptPayload(password, packageB64) {
+      const binary = Uint8Array.from(atob(packageB64), c => c.charCodeAt(0));
+      const salt = binary.slice(0, 16);
+      const iv = binary.slice(16, 28);
+      const ciphertext = binary.slice(28);
+
+      const pwKey = await crypto.subtle.importKey(
+        'raw',
+        new TextEncoder().encode(password),
+        { name: 'PBKDF2' },
+        false,
+        ['deriveKey']
+      );
+
+      const key = await crypto.subtle.deriveKey(
+        { name: 'PBKDF2', salt: salt, iterations: 100000, hash: 'SHA-256' },
+        pwKey,
+        { name: 'AES-GCM', length: 256 },
+        false,
+        ['decrypt']
+      );
+
+      const decrypted = await crypto.subtle.decrypt(
+        { name: 'AES-GCM', iv: iv },
+        key,
+        ciphertext
+      );
+
+      return new TextDecoder().decode(decrypted);
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      clearError();
+      const password = pwInput.value;
+      if (!password) { showError('Enter a password'); return; }
+
+      btn.disabled = true;
+      btn.textContent = 'Unlocking...';
+
+      const payloadB64 = document.getElementById('payload').textContent.trim();
+
+      try {
+        const html = await decryptPayload(password, payloadB64);
+        // Success — swap the page
+        document.open();
+        document.write(html);
+        document.close();
+      } catch (err) {
+        btn.disabled = false;
+        btn.textContent = 'Unlock Scoreboard';
+        showError('Wrong password — try again');
+        pwInput.select();
+      }
+    });
+  })();
+</script>
+</body>
+</html>
