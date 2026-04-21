@@ -258,6 +258,95 @@
   .scoring-item .val { font-size: 24px; font-weight: 900; color: var(--eggplant); line-height: 1; letter-spacing: -0.5px; }
   .scoring-item .lbl { font-size: 10px; color: var(--charcoal-soft); letter-spacing: 1px; font-weight: 700; margin-top: 4px; text-transform: uppercase; }
 
+  /* --- BDR side quest --- */
+  .bdr-section {
+    margin-top: 28px;
+    margin-bottom: 24px;
+    background: linear-gradient(135deg, var(--charcoal) 0%, #1F2A31 100%);
+    border-radius: var(--radius-md);
+    padding: 22px 26px;
+    color: var(--white);
+    position: relative;
+    overflow: hidden;
+  }
+  .bdr-section::before {
+    content: '';
+    position: absolute; top: 0; right: 0;
+    width: 120px; height: 100%;
+    background: radial-gradient(circle at right, rgba(241, 194, 50, 0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .bdr-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 18px; position: relative;
+  }
+  .bdr-header-left { display: flex; align-items: center; gap: 10px; }
+  .bdr-badge {
+    background: var(--gold); color: var(--charcoal);
+    font-size: 10px; font-weight: 800; letter-spacing: 2px;
+    padding: 4px 10px; border-radius: 999px;
+  }
+  .bdr-title { font-size: 16px; font-weight: 800; letter-spacing: -0.3px; }
+  .bdr-subtitle { font-size: 11px; color: var(--gray-blue); letter-spacing: 1px; font-weight: 600; }
+  .bdr-total { font-size: 12px; color: rgba(255, 255, 255, 0.7); font-weight: 600; }
+  .bdr-total b { color: var(--gold); font-weight: 800; }
+
+  .bdr-grid {
+    display: grid; grid-template-columns: 1fr auto 1fr; gap: 0;
+    align-items: stretch;
+  }
+  .bdr-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-sm);
+    padding: 18px 22px;
+    position: relative;
+  }
+  .bdr-card.lead {
+    background: linear-gradient(135deg, rgba(241, 194, 50, 0.15) 0%, rgba(241, 194, 50, 0.05) 100%);
+    border-color: rgba(241, 194, 50, 0.45);
+  }
+  .bdr-card.right { text-align: right; }
+  .bdr-card-tag {
+    font-size: 10px; letter-spacing: 1.5px; font-weight: 700;
+    color: var(--gold); margin-bottom: 4px;
+  }
+  .bdr-card-tag .pos { color: rgba(255, 255, 255, 0.55); font-weight: 500; }
+  .bdr-card-name { font-size: 20px; font-weight: 800; letter-spacing: -0.3px; margin-bottom: 14px; }
+  .bdr-card-score { display: flex; align-items: baseline; gap: 10px; }
+  .bdr-card.right .bdr-card-score { justify-content: flex-end; }
+  .bdr-card-num {
+    font-size: 44px; font-weight: 900; line-height: 1;
+    font-variant-numeric: tabular-nums; letter-spacing: -1.5px;
+    color: var(--white);
+  }
+  .bdr-card.lead .bdr-card-num { color: var(--gold); }
+  .bdr-card-unit { font-size: 11px; letter-spacing: 1.5px; font-weight: 700; color: rgba(255, 255, 255, 0.6); }
+  .bdr-card-status {
+    display: inline-block;
+    font-size: 9px; letter-spacing: 1.5px; font-weight: 800;
+    padding: 3px 8px; border-radius: 999px;
+    background: rgba(255, 255, 255, 0.1); color: rgba(255, 255, 255, 0.8);
+    margin-top: 10px;
+  }
+  .bdr-card.lead .bdr-card-status {
+    background: var(--gold); color: var(--charcoal);
+  }
+
+  .bdr-vs {
+    display: flex; align-items: center; justify-content: center;
+    padding: 0 18px;
+    font-size: 11px; letter-spacing: 2px; font-weight: 800;
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  @media (max-width: 700px) {
+    .bdr-grid { grid-template-columns: 1fr; gap: 10px; }
+    .bdr-vs { padding: 4px 0; }
+    .bdr-card.right { text-align: left; }
+    .bdr-card.right .bdr-card-score { justify-content: flex-start; }
+  }
+
   .foot { text-align: center; padding: 14px 0; font-size: 11px; color: var(--gray-blue); letter-spacing: 0.5px; font-weight: 500; }
   .foot b { color: var(--charcoal); font-weight: 700; }
   .foot .refresh-dot { display: inline-block; width: 6px; height: 6px; background: var(--eggplant); border-radius: 50%; vertical-align: 2px; margin: 0 6px; animation: pulse-dot 1.4s ease-in-out infinite; }
@@ -418,6 +507,42 @@
     <div class="scoring-item"><div class="val">5</div><div class="lbl">Live Mtg</div></div>
     <div class="scoring-item"><div class="val">20</div><div class="lbl">Trial / POC</div></div>
     <div class="scoring-item"><div class="val">3x</div><div class="lbl">Golden Target</div></div>
+  </div>
+
+  <!-- BDR Side Quest -->
+  <div class="bdr-section">
+    <div class="bdr-header">
+      <div class="bdr-header-left">
+        <div class="bdr-badge">🏁 BDR SIDE QUEST</div>
+        <div>
+          <div class="bdr-title">Opps Created for NAMES 2026</div>
+          <div class="bdr-subtitle">Head-to-head · independent of the main scoreboard</div>
+        </div>
+      </div>
+      <div class="bdr-total">{{BDR_TOTAL_LINE}}</div>
+    </div>
+
+    <div class="bdr-grid">
+      <div class="bdr-card {{BDR1_CLASS}}">
+        <div class="bdr-card-tag">{{BDR1_TAG}}</div>
+        <div class="bdr-card-name">{{BDR1_NAME}}</div>
+        <div class="bdr-card-score">
+          <div class="bdr-card-num">{{BDR1_OPPS}}</div>
+          <div class="bdr-card-unit">OPPS<br>CREATED</div>
+        </div>
+        <div class="bdr-card-status">{{BDR1_STATUS}}</div>
+      </div>
+      <div class="bdr-vs">VS</div>
+      <div class="bdr-card right {{BDR2_CLASS}}">
+        <div class="bdr-card-tag">{{BDR2_TAG}}</div>
+        <div class="bdr-card-name">{{BDR2_NAME}}</div>
+        <div class="bdr-card-score">
+          <div class="bdr-card-num">{{BDR2_OPPS}}</div>
+          <div class="bdr-card-unit">OPPS<br>CREATED</div>
+        </div>
+        <div class="bdr-card-status">{{BDR2_STATUS}}</div>
+      </div>
+    </div>
   </div>
 
   <div class="foot">
