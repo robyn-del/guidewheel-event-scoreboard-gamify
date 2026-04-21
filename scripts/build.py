@@ -36,6 +36,12 @@ PLAYERS = {
     "Charlotte Ward Brodey": {"team": "STRAT", "short": "Charlotte"},
 }
 
+# BDRs competing on opp creation (separate from the main scoreboard)
+BDRS = {
+    "Samuel Uguru":  {"short": "Samuel"},
+    "Thomas Harper": {"short": "Thomas"},
+}
+
 
 def encrypt_aesgcm(password: str, plaintext: str) -> str:
     """Encrypt plaintext with AES-GCM using password-derived key. Returns base64."""
@@ -196,6 +202,16 @@ def build_ticker(scores: dict, golden_target: str, total_pipeline: float) -> str
     return "\n        ".join(items)
 
 
+def compute_bdr_stats(opps: list):
+    """Count opps created by each BDR on the NAMES 2026 campaign."""
+    counts = {name: 0 for name in BDRS}
+    for opp in opps:
+        creator = opp.get("created_by", "")
+        if creator in BDRS:
+            counts[creator] += 1
+    return counts
+
+
 def build_scoreboard_html(template_path: Path, data: dict) -> str:
     """Build the full scoreboard HTML from template + data."""
     template = template_path.read_text()
@@ -204,6 +220,7 @@ def build_scoreboard_html(template_path: Path, data: dict) -> str:
     golden_target = data.get("golden_target", "TBD")
 
     scores = compute_player_scores(opps, golden_target)
+    bdr_counts = compute_bdr_stats(opps)
 
     # Team totals
     reps_pts_total = sum(s["pts"] for p, s in scores.items() if PLAYERS[p]["team"] == "REPS")
@@ -308,6 +325,41 @@ def build_scoreboard_html(template_path: Path, data: dict) -> str:
     now_pt = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=-7)))
     last_refresh = now_pt.strftime("%b %-d · %-I:%M%p PT").lower().replace("pm pt", " PM PT").replace("am pt", " AM PT")
 
+    # BDR section
+    bdr_names = list(BDRS.keys())
+    bdr1_name = bdr_names[0]  # Samuel Uguru
+    bdr2_name = bdr_names[1]  # Thomas Harper
+    bdr1_count = bdr_counts[bdr1_name]
+    bdr2_count = bdr_counts[bdr2_name]
+    bdr_total = bdr1_count + bdr2_count
+
+    # Percent of campaign opps that came from BDRs
+    campaign_total = len(opps)
+    bdr_pct = round((bdr_total / campaign_total) * 100) if campaign_total else 0
+
+    if campaign_total == 0:
+        bdr_total_line = "BDRs ready to light up the board"
+    elif bdr_total == campaign_total:
+        bdr_total_line = f"BDRs fueled <b>all {campaign_total}</b> NAMES opps 🔥"
+    else:
+        bdr_total_line = f"BDRs fueled <b>{bdr_total} of {campaign_total}</b> NAMES opps · <b>{bdr_pct}%</b>"
+
+    # Determine lead
+    if bdr1_count > bdr2_count:
+        bdr1_class, bdr2_class = "lead", ""
+        bdr1_status = "🔥 LEADING"
+        bdr2_status = f"BEHIND BY {bdr1_count - bdr2_count}"
+    elif bdr2_count > bdr1_count:
+        bdr1_class, bdr2_class = "", "lead"
+        bdr1_status = f"BEHIND BY {bdr2_count - bdr1_count}"
+        bdr2_status = "🔥 LEADING"
+    else:
+        bdr1_class = bdr2_class = ""
+        if bdr1_count == 0:
+            bdr1_status = bdr2_status = "ON DECK"
+        else:
+            bdr1_status = bdr2_status = "⚔️ DEAD HEAT"
+
     # Substitutions
     replacements = {
         "{{HYPE_TAG}}": hype_tag,
@@ -333,6 +385,17 @@ def build_scoreboard_html(template_path: Path, data: dict) -> str:
         "{{STANDINGS_ROWS}}": "".join(standings_rows),
         "{{GOLDEN_TARGET}}": golden_display,
         "{{LAST_REFRESH}}": last_refresh,
+        "{{BDR_TOTAL_LINE}}": bdr_total_line,
+        "{{BDR1_NAME}}": bdr1_name,
+        "{{BDR1_TAG}}": f"BDR · <span class=\"pos\">{BDRS[bdr1_name]['short']}</span>",
+        "{{BDR1_OPPS}}": str(bdr1_count),
+        "{{BDR1_CLASS}}": bdr1_class,
+        "{{BDR1_STATUS}}": bdr1_status,
+        "{{BDR2_NAME}}": bdr2_name,
+        "{{BDR2_TAG}}": f"BDR · <span class=\"pos\">{BDRS[bdr2_name]['short']}</span>",
+        "{{BDR2_OPPS}}": str(bdr2_count),
+        "{{BDR2_CLASS}}": bdr2_class,
+        "{{BDR2_STATUS}}": bdr2_status,
     }
 
     for key, val in replacements.items():
